@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "612451033750",
+    "project_id": "p2p-money-lending-app",
+    "storage_bucket": "p2p-money-lending-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:612451033750:android:ebf0a1cefba8c5ca9dd8b7",
+        "android_client_info": {
+          "package_name": "com.example.p2p_money_lending_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU2-UyqySETVDt_9UGoNyEaAWH8flNFq8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
