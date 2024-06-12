@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/view/settings/settings_view.dart';
@@ -46,7 +47,9 @@ class _CardsViewState extends State<CardsView> {
         ]),
       fade: 1.0,
       onIndexChanged: (index) {
-        print(index);
+        if (kDebugMode) {
+          print(index);
+        }
       },
       scale: 0.8,
       itemWidth: 232.0,

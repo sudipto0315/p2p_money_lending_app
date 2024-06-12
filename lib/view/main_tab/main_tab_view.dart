@@ -90,7 +90,7 @@ class _MainTabViewState extends State<MainTabView> {
                               onPressed: () {
                                 setState(() {
                                   selectTab = 2;
-                                  currentTabView = CalenderView();
+                                  currentTabView = const CalenderView();
                                 });
                               },
                               icon: Image.asset(
@@ -106,7 +106,7 @@ class _MainTabViewState extends State<MainTabView> {
                               onPressed: () {
                                 setState(() {
                                   selectTab = 3;
-                                  currentTabView = CardsView();
+                                  currentTabView = const CardsView();
                                 });
                               },
                               icon: Image.asset(

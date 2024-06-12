@@ -9,18 +9,24 @@ import 'package:p2p_money_lending_app/view/main_tab/main_tab_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  // set preferred orientations to portrait up and portrait down
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp
-  ]).then((_){
-    runApp(const MyApp());
-  });
+
+  // Ensure system UI overlay styles are set before the app runs
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent, // Transparent status bar
+    statusBarIconBrightness: Brightness.light, // Status bar icons brightness
+    systemNavigationBarColor: Colors.black, // Navigation bar color
+    systemNavigationBarIconBrightness: Brightness.light, // Navigation bar icons brightness
+  ));
+
+  // Set system UI mode
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,12 +48,12 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data != null) {
-              return const MainTabView(); // User is signed in, navigate to MainTabView
+              return const MainTabView();
             } else {
-              return const WelcomeView(); // User is not signed in, navigate to WelcomeView
+              return const WelcomeView();
             }
           }
-          return const CircularProgressIndicator(); // Show a loading spinner while waiting for the auth state to change
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

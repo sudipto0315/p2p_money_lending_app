@@ -19,7 +19,7 @@ class _CalenderViewState extends State<CalenderView> {
       CalendarAgendaController();
   late DateTime selectedDateNotAppBBar;
 
-  Random random = new Random();
+  Random random = Random();
 
   List subArr = [
     {
@@ -52,7 +52,7 @@ class _CalenderViewState extends State<CalenderView> {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    // var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: TColor.gray,
       body: SingleChildScrollView(
@@ -89,7 +89,7 @@ class _CalenderViewState extends State<CalenderView> {
 
                               Row(
                                 children: [
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
                                       onPressed: () {
                                         Navigator.push(context, MaterialPageRoute(builder: (context) => const SettingsView() ) );

@@ -53,7 +53,7 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
               padding: const EdgeInsets.only(top: 35, right: 10),
               child: Row(
                 children: [
-                  Spacer(),
+                  const Spacer(),
                   IconButton(
                       onPressed: () {
                         Navigator.push(
@@ -69,7 +69,7 @@ class _SpendingBudgetsViewState extends State<SpendingBudgetsView> {
             Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Container(
+                SizedBox(
                   width: media.width * 0.5,
                   height: media.width * 0.30,
                   child: CustomPaint(
