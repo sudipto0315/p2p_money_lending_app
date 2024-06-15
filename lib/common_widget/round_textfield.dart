@@ -8,13 +8,17 @@ class RoundTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextAlign titleAlign;
   final bool obscureText;
-  const RoundTextField(
-      {super.key,
-      required this.title,
-      this.titleAlign = TextAlign.left,
-      this.controller,
-      this.keyboardType,
-      this.obscureText = false});
+  final Widget? suffixIcon; // Add this line
+
+  const RoundTextField({
+    super.key,
+    required this.title,
+    this.titleAlign = TextAlign.left,
+    this.controller,
+    this.keyboardType,
+    this.obscureText = false,
+    this.suffixIcon, // Add this line
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,10 +48,11 @@ class RoundTextField extends StatelessWidget {
               borderRadius: BorderRadius.circular(15)),
           child: TextField(
             controller: controller,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               focusedBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
+              suffixIcon: suffixIcon, // Use it here
             ),
             keyboardType: keyboardType,
             obscureText: obscureText,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/common_widget/primary_button.dart';
 import 'package:p2p_money_lending_app/common_widget/round_textfield.dart';
-import 'package:p2p_money_lending_app/common_widget/round_dropdown.dart';
 import 'package:p2p_money_lending_app/view/login/sign_in_view.dart';
 
 class UserKYCDetailsView extends StatefulWidget {
@@ -43,17 +42,6 @@ class _UserKYCDetailsViewState extends State<UserKYCDetailsView> {
                 RoundTextField(
                   title: "Bank Account Number",
                   controller: txtBankAccountNumber,
-                ),
-                const SizedBox(height: 20),
-                RoundDropdown(
-                  title: "Select Role",
-                  dropdownValue: roleForDropdownValue,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      roleForDropdownValue = newValue!;
-                    });
-                  },
-                  items: const ['Select', 'Borrower', 'Lender'],
                 ),
                 const SizedBox(height: 20),
                 PrimaryButton(

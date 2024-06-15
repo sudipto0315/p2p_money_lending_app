@@ -17,12 +17,13 @@ class _UserDetailsViewState extends State<UserDetailsView> {
   final TextEditingController txtLastName = TextEditingController();
   final TextEditingController txtDateOfBirth = TextEditingController();
   final TextEditingController txtPhoneNumber = TextEditingController();
+  final TextEditingController txtEmail = TextEditingController();
   final TextEditingController txtAddress = TextEditingController();
 
   String genderDropdownValue = 'Select'; // Define dropdownValue
   String maritalStatusDropdownValue = 'Select'; // Define dropdownValue
   String occupationDropdownValue = 'Select'; // Define dropdownValue
-
+  String roleForDropdownValue = 'Select'; // Define dropdownValue
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,14 +67,36 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                   items: const ['Select', 'Married', 'Un-Married'],
                 ),
                 const SizedBox(height: 20),
-                RoundTextField(
-                  title: "Date of Birth",
-                  controller: txtDateOfBirth,
+                InkWell(
+                  onTap: () async {
+                    final DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1900),
+                      lastDate: DateTime.now(),
+                    );
+                    if (pickedDate != null) {
+                      txtDateOfBirth.text = "${pickedDate.toLocal()}".split(' ')[0];
+                    }
+                  },
+                  child: IgnorePointer(
+                    child: RoundTextField(
+                      title: "Date of Birth",
+                      controller: txtDateOfBirth,
+                      suffixIcon: const Icon(Icons.calendar_today, color: Colors.white), // Add suffixIcon to show calendar icon
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 20),
                 RoundTextField(
                   title: "Phone Number",
                   controller: txtPhoneNumber,
+                  keyboardType: TextInputType.phone,
+                ),
+                const SizedBox(height: 20),
+                RoundTextField(
+                  title: "E-Mail",
+                  controller: txtEmail,
                   keyboardType: TextInputType.emailAddress,
                 ),
                 const SizedBox(height: 20),
@@ -91,6 +114,17 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 RoundTextField(
                   title: "Address",
                   controller: txtAddress,
+                ),
+                const SizedBox(height: 20),
+                RoundDropdown(
+                  title: "Select Role",
+                  dropdownValue: roleForDropdownValue,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      roleForDropdownValue = newValue!;
+                    });
+                  },
+                  items: const ['Select', 'Borrower', 'Lender'],
                 ),
                 const SizedBox(height: 20),
                 PrimaryButton(
