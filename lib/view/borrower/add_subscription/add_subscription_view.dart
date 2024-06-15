@@ -4,7 +4,7 @@ import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/common_widget/primary_button.dart';
 import 'package:p2p_money_lending_app/common_widget/round_textfield.dart';
 
-import '../../common_widget/image_button.dart';
+import '../../../common_widget/image_button.dart';
 
 class AddSubScriptionView extends StatefulWidget {
   const AddSubScriptionView({super.key});

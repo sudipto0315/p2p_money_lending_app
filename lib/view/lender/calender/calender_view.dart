@@ -3,9 +3,9 @@ import 'package:intl/intl.dart';
 import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
-import 'package:p2p_money_lending_app/view/settings/settings_view.dart';
+import 'package:p2p_money_lending_app/view/lender/settings/settings_view.dart';
 
-import '../../common_widget/subscription_cell.dart';
+import '../../../common_widget/subscription_cell.dart';
 
 class CalenderView extends StatefulWidget {
   const CalenderView({super.key});

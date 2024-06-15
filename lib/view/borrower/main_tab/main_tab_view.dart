@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p2p_money_lending_app/view/add_subscription/add_subscription_view.dart';
+import 'package:p2p_money_lending_app/view/borrower/add_subscription/add_subscription_view.dart';
 
-import '../../common/color_extension.dart';
+import '../../../common/color_extension.dart';
 import '../calender/calender_view.dart';
 import '../card/cards_view.dart';
 import '../home/home_view.dart';

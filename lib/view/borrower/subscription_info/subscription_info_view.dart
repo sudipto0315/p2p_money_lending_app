@@ -2,8 +2,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common_widget/secondary_boutton.dart';
 
-import '../../common/color_extension.dart';
-import '../../common_widget/item_row.dart';
+import '../../../common/color_extension.dart';
+import '../../../common_widget/item_row.dart';
 
 class SubscriptionInfoView extends StatefulWidget {
   final Map sObj;

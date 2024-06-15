@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p2p_money_lending_app/view/home/lender_home_view.dart';
+import 'package:p2p_money_lending_app/view/lender/home/home_view.dart';
 import 'package:p2p_money_lending_app/view/login/sign_in_view.dart';
 import 'package:p2p_money_lending_app/view/login/social_login.dart';
+import 'package:p2p_money_lending_app/view/login/test_data_view.dart';
 import 'package:p2p_money_lending_app/view/login/user_details_view.dart';
 
 import '../../common/color_extension.dart';
@@ -92,12 +93,24 @@ class _WelcomeViewState extends State<WelcomeView> {
                     },
                   ),
                   SecondaryButton(
+                    title: "Test data",
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TestDataView(),
+                        ),
+                      );
+                    },
+                  ),
+                  // Lender View (Testing Purpose)
+                  SecondaryButton(
                     title: "Lender",
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LenderHomeView(),
+                          builder: (context) => const HomeView(),
                         ),
                       );
                     },

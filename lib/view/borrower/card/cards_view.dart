@@ -3,7 +3,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
-import 'package:p2p_money_lending_app/view/settings/settings_view.dart';
+import 'package:p2p_money_lending_app/view/borrower/settings/settings_view.dart';
 
 class LoanOffer {
   final String lenderName;

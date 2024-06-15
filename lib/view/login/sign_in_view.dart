@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/view/login/sign_up_view.dart';
-import 'package:p2p_money_lending_app/view/main_tab/main_tab_view.dart';
+import 'package:p2p_money_lending_app/view/borrower/main_tab/main_tab_view.dart';
 
 import '../../common/color_extension.dart';
 import '../../common_widget/primary_button.dart';

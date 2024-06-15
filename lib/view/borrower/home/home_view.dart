@@ -1,49 +1,72 @@
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 
-import '../../common_widget/custom_arc_painter.dart';
-import '../../common_widget/segment_button.dart';
-import '../../common_widget/status_button.dart';
-import '../../common_widget/subscription_home_row.dart';
-// import '../../common_widget/upcoming_bill_row.dart';
+import '../../../common_widget/custom_arc_painter.dart';
+import '../../../common_widget/segment_button.dart';
+import '../../../common_widget/status_button.dart';
+import '../../../common_widget/subscription_home_row.dart';
+import '../../../common_widget/upcoming_bill_row.dart';
 import '../settings/settings_view.dart';
 import '../subscription_info/subscription_info_view.dart';
 
-class LenderHomeView extends StatefulWidget {
-  const LenderHomeView({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  LenderHomeViewState createState() => LenderHomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class LenderHomeViewState extends State<LenderHomeView> {
+class _HomeViewState extends State<HomeView> {
   bool isSubscription = true;
   List subArr = [
     {
-      "name": "Borrower 1",
+      "name": "Person 1",
       "icon": "assets/img/spotify_logo.png",
       "price": "5.99"
     },
     {
-      "name": "Borrower 2",
+      "name": "Person 2",
       "icon": "assets/img/youtube_logo.png",
       "price": "18.99"
     },
     {
-      "name": "Borrower 3",
+      "name": "Person 3",
       "icon": "assets/img/onedrive_logo.png",
       "price": "29.99"
     },
     {
-      "name": "Borrower 4",
+      "name": "Person 4",
       "icon": "assets/img/netflix_logo.png",
+      "price": "15.00"
+    }
+  ];
+
+  List bilArr = [
+    {
+      "name": "Person 1",
+      "date": DateTime(2023, 07, 25),
+      "price": "5.99"
+    },
+    {
+      "name": "Person 2",
+      "date": DateTime(2023, 07, 25),
+      "price": "18.99"
+    },
+    {
+      "name": "Person 3",
+      "date": DateTime(2023, 07, 25),
+      "price": "29.99"
+    },
+    {
+      "name": "Person 4",
+      "date": DateTime(2023, 07, 25),
       "price": "15.00"
     }
   ];
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
+    var media = MediaQuery.sizeOf(context);
     return Scaffold(
       backgroundColor: TColor.gray,
       body: SingleChildScrollView(
@@ -64,13 +87,14 @@ class LenderHomeViewState extends State<LenderHomeView> {
                     alignment: Alignment.topCenter,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(bottom: media.width * 0.05),
+                        padding:  EdgeInsets.only(bottom: media.width * 0.05),
                         width: media.width * 0.72,
                         height: media.width * 0.72,
                         child: CustomPaint(
-                          painter: CustomArcPainter(end: 220),
+                          painter: CustomArcPainter(end: 220, ),
                         ),
                       ),
+
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Row(
@@ -101,7 +125,7 @@ class LenderHomeViewState extends State<LenderHomeView> {
                       ),
                       Image.asset("assets/img/app_logo.png",
                           width: media.width * 0.25, fit: BoxFit.contain),
-                      SizedBox(
+                       SizedBox(
                         height: media.width * 0.07,
                       ),
                       Text(
@@ -237,8 +261,24 @@ class LenderHomeViewState extends State<LenderHomeView> {
                     return SubScriptionHomeRow(
                       sObj: sObj,
                       onPressed: () {
+
                         Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionInfoView( sObj: sObj ) ));
                       },
+                    );
+                  }),
+            if (!isSubscription)
+              ListView.builder(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: subArr.length,
+                  itemBuilder: (context, index) {
+                    var sObj = subArr[index] as Map? ?? {};
+
+                    return UpcomingBillRow(
+                      sObj: sObj,
+                      onPressed: () {},
                     );
                   }),
             const SizedBox(

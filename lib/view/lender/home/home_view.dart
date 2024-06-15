@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 
-import '../../common_widget/custom_arc_painter.dart';
-import '../../common_widget/segment_button.dart';
-import '../../common_widget/status_button.dart';
-import '../../common_widget/subscription_home_row.dart';
-import '../../common_widget/upcoming_bill_row.dart';
+import '../../../common_widget/custom_arc_painter.dart';
+import '../../../common_widget/segment_button.dart';
+import '../../../common_widget/status_button.dart';
+import '../../../common_widget/subscription_home_row.dart';
+import '../../../common_widget/upcoming_bill_row.dart';
 import '../settings/settings_view.dart';
 import '../subscription_info/subscription_info_view.dart';
 

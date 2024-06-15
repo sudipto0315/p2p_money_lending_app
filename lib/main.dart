@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/view/login/welcome_view.dart';
-import 'package:p2p_money_lending_app/view/main_tab/main_tab_view.dart';
+import 'package:p2p_money_lending_app/view/borrower/main_tab/main_tab_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

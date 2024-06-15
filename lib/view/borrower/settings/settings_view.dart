@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/color_extension.dart';
-import '../../common_widget/icon_item_row.dart';
-import '../login/sign_in_view.dart';
+import '../../../common/color_extension.dart';
+import '../../../common_widget/icon_item_row.dart';
+import '../../login/sign_in_view.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
