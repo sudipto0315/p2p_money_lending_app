@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/view/lender/settings/settings_view.dart';
 
-class LoanOffer {
-  final String lenderName;
-  final double amount;
-  final double interestRate;
+class LoanApplications {
+  final String borrowerName;
+  final double amountLent;
+  final double creditScore;
   final int tenure;
 
-  LoanOffer({
-    required this.lenderName,
-    required this.amount,
-    required this.interestRate,
+  LoanApplications({
+    required this.borrowerName,
+    required this.amountLent,
+    required this.creditScore,
     required this.tenure,
   });
 }
@@ -27,17 +27,17 @@ class CardsView extends StatefulWidget {
 }
 
 class _CardsViewState extends State<CardsView> {
-  List<LoanOffer> loanOffers = [
-    LoanOffer(lenderName: "Lender 1", amount: 5000, interestRate: 5.5, tenure: 12),
-    LoanOffer(lenderName: "Lender 2", amount: 10000, interestRate: 4.5, tenure: 24),
-    // Add more loan offers...
+  List<LoanApplications> loanApplications = [
+    LoanApplications(borrowerName: "Borrower 1", amountLent: 5000, creditScore: 5.5, tenure: 12),
+    LoanApplications(borrowerName: "Borrower 2", amountLent: 10000, creditScore: 4.5, tenure: 24),
+    // Add more loan Applications...
   ];
 
   SwiperController controller = SwiperController();
 
   Widget buildSwiper() {
     return Swiper(
-      itemCount: loanOffers.length,
+      itemCount: loanApplications.length,
       customLayoutOption: CustomLayoutOption(startIndex: -1, stateCount: 3)
         ..addRotate([-45.0 / 180, 0.0, 45.0 / 180])
         ..addTranslate([
@@ -58,7 +58,7 @@ class _CardsViewState extends State<CardsView> {
       layout: SwiperLayout.STACK,
       viewportFraction: 0.8,
       itemBuilder: ((context, index) {
-        var loanOffer = loanOffers[index];
+        var loanApplication = loanApplications[index];
         return Container(
           decoration: BoxDecoration(
               color: TColor.gray70,
@@ -82,7 +82,7 @@ class _CardsViewState extends State<CardsView> {
                   height: 8,
                 ),
                 Text(
-                  "Loan Offer",
+                  "Application",
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 16,
@@ -92,7 +92,7 @@ class _CardsViewState extends State<CardsView> {
                   height: 115,
                 ),
                 Text(
-                  loanOffer.lenderName,
+                  loanApplication.borrowerName,
                   style: TextStyle(
                       color: TColor.gray20,
                       fontSize: 12,
@@ -102,7 +102,7 @@ class _CardsViewState extends State<CardsView> {
                   height: 8,
                 ),
                 Text(
-                  loanOffer.amount.toString(),
+                  loanApplication.amountLent.toString(),
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 16,
@@ -112,14 +112,14 @@ class _CardsViewState extends State<CardsView> {
                   height: 8,
                 ),
                 Text(
-                  "${loanOffer.interestRate}% interest",
+                  "Credit Score: ${loanApplication.creditScore}",
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 14,
                       fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  "${loanOffer.tenure} months",
+                  "${loanApplication.tenure} months",
                   style: TextStyle(
                       color: TColor.white,
                       fontSize: 14,
@@ -159,7 +159,7 @@ class _CardsViewState extends State<CardsView> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Loan Offers",
+                            "Loan Applications",
                             style:
                                 TextStyle(color: TColor.gray30, fontSize: 16),
                           ),
@@ -220,7 +220,7 @@ class _CardsViewState extends State<CardsView> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    "Add new offer",
+                                    "Accept Loan Application",
                                     style: TextStyle(
                                         color: TColor.gray30,
                                         fontSize: 14,

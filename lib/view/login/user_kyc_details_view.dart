@@ -4,8 +4,11 @@ import 'package:p2p_money_lending_app/common_widget/primary_button.dart';
 import 'package:p2p_money_lending_app/common_widget/round_textfield.dart';
 import 'package:p2p_money_lending_app/view/login/sign_in_view.dart';
 
+import '../../services/network_service.dart';
+
 class UserKYCDetailsView extends StatefulWidget {
-  const UserKYCDetailsView({super.key});
+  final String UserID;
+  const UserKYCDetailsView({super.key, required this.UserID});
 
   @override
   State<UserKYCDetailsView> createState() => _UserKYCDetailsViewState();
@@ -47,6 +50,12 @@ class _UserKYCDetailsViewState extends State<UserKYCDetailsView> {
                 PrimaryButton(
                   title: "Submit",
                   onPressed: () {
+                    sendKYCDetailsToServer(
+                      widget.UserID,
+                      txtAadhaarNumber.text,
+                      txtPANNumber.text,
+                      txtBankAccountNumber.text,
+                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(

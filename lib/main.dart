@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data != null) {
-              return const MainTabView();
+              return const BorrowerMainTabView();
             } else {
               return const WelcomeView();
             }

@@ -2,11 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/view/login/sign_up_view.dart';
 import 'package:p2p_money_lending_app/view/borrower/main_tab/main_tab_view.dart';
-
+import 'package:p2p_money_lending_app/view/lender/main_tab/main_tab_view.dart';
 import '../../common/color_extension.dart';
 import '../../common_widget/primary_button.dart';
+import '../../common_widget/round_dropdown.dart';
 import '../../common_widget/round_textfield.dart';
 import '../../common_widget/secondary_boutton.dart';
+
+import '../../services/network_service.dart';
 
 class SignInView extends StatefulWidget {
   const SignInView({super.key});
@@ -19,6 +22,7 @@ class _SignInViewState extends State<SignInView> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   bool isRemember = false;
+  String roleForDropdownValue = 'Select';
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,16 @@ class _SignInViewState extends State<SignInView> {
               Image.asset("assets/img/app_logo.png",
                   width: media.width * 0.5, fit: BoxFit.contain),
               const Spacer(),
+              RoundDropdown(
+                title: "Select Role",
+                dropdownValue: roleForDropdownValue,
+                onChanged: (String? newValue) {
+                  setState(() {
+                    roleForDropdownValue = newValue!;
+                  });
+                },
+                items: const ['Select', 'Borrower', 'Lender'],
+              ),
               RoundTextField(
                 title: "Login",
                 controller: txtEmail,
@@ -98,6 +112,14 @@ class _SignInViewState extends State<SignInView> {
               PrimaryButton(
                 title: "Sign In",
                 onPressed: () async {
+                  if (roleForDropdownValue == 'Select') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Select a Valid Role'),
+                      ),
+                    );
+                    return;
+                  }
                   try {
                     UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
                         email: txtEmail.text,
@@ -111,13 +133,33 @@ class _SignInViewState extends State<SignInView> {
                         ),
                       );
                     } else {
-                      // Navigate to the MainTabView if sign in is successful.
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainTabView(),
-                        ),
-                      );
+                      // Check if the user exists in the Users table
+                      List<String> roles = await getUserRole(txtEmail.text);
+                      if (!roles.contains(roleForDropdownValue)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Invalid role selected.'),
+                          ),
+                        );
+                        return;
+                      }
+                      if (roleForDropdownValue == 'Lender') {
+                        // Navigate to the Lender's MainTabView if the user is a lender
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LenderMainTabView(),
+                          ),
+                        );
+                      } else if (roleForDropdownValue == 'Borrower') {
+                        // Navigate to the Borrower's MainTabView if the user is a borrower
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const BorrowerMainTabView(),
+                          ),
+                        );
+                      }
                     }
                   } on FirebaseAuthException catch (e) {
                     String message = 'An error occurred. Please try again.';

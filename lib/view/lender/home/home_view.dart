@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
+import 'package:p2p_money_lending_app/common_widget/investment_home_row.dart';
 
 import '../../../common_widget/custom_arc_painter.dart';
 import '../../../common_widget/segment_button.dart';
 import '../../../common_widget/status_button.dart';
-import '../../../common_widget/subscription_home_row.dart';
-import '../../../common_widget/upcoming_bill_row.dart';
+import '../../../common_widget/upcoming_return_row.dart';
+import '../investment_info/investment_info_view.dart';
 import '../settings/settings_view.dart';
-import '../subscription_info/subscription_info_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,56 +17,59 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  bool isSubscription = true;
-  List subArr = [
+  bool isInvestments = true;
+  List investmentArr = [
     {
-      "name": "Person 1",
+      "name": "Investment 1",
       "icon": "assets/img/spotify_logo.png",
       "price": "5.99"
     },
     {
-      "name": "Person 2",
+      "name": "Investment 2",
       "icon": "assets/img/youtube_logo.png",
       "price": "18.99"
     },
     {
-      "name": "Person 3",
+      "name": "Investment 3",
       "icon": "assets/img/onedrive_logo.png",
       "price": "29.99"
     },
     {
-      "name": "Person 4",
+      "name": "Investment 4",
       "icon": "assets/img/netflix_logo.png",
       "price": "15.00"
     }
+    // Add more investments
   ];
 
-  List bilArr = [
+  List returnArr = [
     {
-      "name": "Person 1",
+      "name": "Return 1",
       "date": DateTime(2023, 07, 25),
       "price": "5.99"
     },
     {
-      "name": "Person 2",
+      "name": "Return 2",
       "date": DateTime(2023, 07, 25),
       "price": "18.99"
     },
     {
-      "name": "Person 3",
+      "name": "Return 3",
       "date": DateTime(2023, 07, 25),
       "price": "29.99"
     },
     {
-      "name": "Person 4",
+      "name": "Return 4",
       "date": DateTime(2023, 07, 25),
       "price": "15.00"
     }
+    // Add more returns
   ];
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.sizeOf(context);
+    var media = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: TColor.gray,
       body: SingleChildScrollView(
@@ -87,14 +90,13 @@ class _HomeViewState extends State<HomeView> {
                     alignment: Alignment.topCenter,
                     children: [
                       Container(
-                        padding:  EdgeInsets.only(bottom: media.width * 0.05),
+                        padding: EdgeInsets.only(bottom: media.width * 0.05),
                         width: media.width * 0.72,
                         height: media.width * 0.72,
                         child: CustomPaint(
-                          painter: CustomArcPainter(end: 220, ),
+                          painter: CustomArcPainter(end: 220),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(right: 10),
                         child: Row(
@@ -106,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const SettingsView()));
+                                          const SettingsView()));
                                 },
                                 icon: Image.asset("assets/img/settings.png",
                                     width: 25,
@@ -125,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       Image.asset("assets/img/app_logo.png",
                           width: media.width * 0.25, fit: BoxFit.contain),
-                       SizedBox(
+                      SizedBox(
                         height: media.width * 0.07,
                       ),
                       Text(
@@ -179,7 +181,7 @@ class _HomeViewState extends State<HomeView> {
                           children: [
                             Expanded(
                               child: StatusButton(
-                                title: "Active Loans",
+                                title: "Active Investments",
                                 value: "12",
                                 statusColor: TColor.secondary,
                                 onPressed: () {},
@@ -190,7 +192,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             Expanded(
                               child: StatusButton(
-                                title: "Highest Loan",
+                                title: "Highest Investment",
                                 value: "\$19.99",
                                 statusColor: TColor.primary10,
                                 onPressed: () {},
@@ -201,7 +203,7 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             Expanded(
                               child: StatusButton(
-                                title: "Lowest Loan",
+                                title: "Lowest Investment",
                                 value: "\$5.99",
                                 statusColor: TColor.secondaryG,
                                 onPressed: () {},
@@ -225,22 +227,22 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Expanded(
                     child: SegmentButton(
-                      title: "Your Loans",
-                      isActive: isSubscription,
+                      title: "Your Investments",
+                      isActive: isInvestments,
                       onPressed: () {
                         setState(() {
-                          isSubscription = !isSubscription;
+                          isInvestments = !isInvestments;
                         });
                       },
                     ),
                   ),
                   Expanded(
                     child: SegmentButton(
-                      title: "Upcoming bills",
-                      isActive: !isSubscription,
+                      title: "Upcoming Returns",
+                      isActive: !isInvestments,
                       onPressed: () {
                         setState(() {
-                          isSubscription = !isSubscription;
+                          isInvestments = !isInvestments;
                         });
                       },
                     ),
@@ -248,36 +250,39 @@ class _HomeViewState extends State<HomeView> {
                 ],
               ),
             ),
-            if (isSubscription)
+            if (isInvestments)
               ListView.builder(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: subArr.length,
+                  itemCount: investmentArr.length,
                   itemBuilder: (context, index) {
-                    var sObj = subArr[index] as Map? ?? {};
+                    var iObj = investmentArr[index] as Map? ?? {};
 
-                    return SubScriptionHomeRow(
-                      sObj: sObj,
+                    return InvestmentHomeRow(
+                      iObj: iObj,
                       onPressed: () {
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => SubscriptionInfoView( sObj: sObj ) ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    InvestmentInfoView(iObj: iObj)));
                       },
                     );
                   }),
-            if (!isSubscription)
+            if (!isInvestments)
               ListView.builder(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: subArr.length,
+                  itemCount: returnArr.length,
                   itemBuilder: (context, index) {
-                    var sObj = subArr[index] as Map? ?? {};
+                    var rObj = returnArr[index] as Map? ?? {};
 
-                    return UpcomingBillRow(
-                      sObj: sObj,
+                    return UpcomingReturnRow(
+                      rObj: rObj,
                       onPressed: () {},
                     );
                   }),

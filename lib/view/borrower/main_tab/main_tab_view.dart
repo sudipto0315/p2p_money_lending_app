@@ -8,14 +8,14 @@ import '../card/cards_view.dart';
 import '../home/home_view.dart';
 import '../spending_budgets/spending_budgets_view.dart';
 
-class MainTabView extends StatefulWidget {
-  const MainTabView({super.key});
+class BorrowerMainTabView extends StatefulWidget {
+  const BorrowerMainTabView({super.key});
 
   @override
-  State<MainTabView> createState() => _MainTabViewState();
+  State<BorrowerMainTabView> createState() => _BorrowerMainTabView();
 }
 
-class _MainTabViewState extends State<MainTabView> {
+class _BorrowerMainTabView extends State<BorrowerMainTabView> {
   int selectTab = 0;
   PageStorageBucket pageStorageBucket = PageStorageBucket();
   Widget currentTabView = const HomeView();

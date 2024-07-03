@@ -3,6 +3,41 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+class Book {
+  final String? section;
+  final int? bookid;
+  final String? bookName;
+  final String? authors;
+  final int? borrowerId;
+  final String? borrowerName;
+  final String? issueDate;
+  final String? returnDate;
+
+  Book({
+    this.section,
+    this.bookid,
+    this.bookName,
+    this.authors,
+    this.borrowerId,
+    this.borrowerName,
+    this.issueDate,
+    this.returnDate,
+  });
+
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+      section: json['section'] as String?,
+      bookid: json['bookid'] as int?,
+      bookName: json['Book_name'] as String?,
+      authors: json['Authors'] as String?,
+      borrowerId: json['borrower_ID'] as int?,
+      borrowerName: json['borrower_name'] as String?,
+      issueDate: json['Issue_Date'] as String?,
+      returnDate: json['Return_Date'] as String?,
+    );
+  }
+}
+
 class TestDataView extends StatefulWidget {
   const TestDataView({super.key});
 
@@ -11,7 +46,7 @@ class TestDataView extends StatefulWidget {
 }
 
 class _TestDataViewState extends State<TestDataView> {
-  List<dynamic> data = [];
+  List<Book> data = [];
 
   @override
   void initState() {
@@ -20,7 +55,7 @@ class _TestDataViewState extends State<TestDataView> {
   }
 
   void getData() async {
-    final response = await http.get(Uri.parse('http://localhost:3000/testdata'));
+    final response = await http.get(Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/testdata'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);
@@ -28,7 +63,7 @@ class _TestDataViewState extends State<TestDataView> {
         print(jsonResponse);
       }
       setState(() {
-        data = jsonResponse;
+        data = jsonResponse.map((item) => Book.fromJson(item)).toList();
       });
     } else {
       throw Exception('Failed to load data');
@@ -45,8 +80,8 @@ class _TestDataViewState extends State<TestDataView> {
         itemCount: data.length,
         itemBuilder: (context, index) {
           return ListTile(
-            title: Text(data[index]['title']), // replace 'title' with the actual key name in your data
-            subtitle: Text(data[index]['subtitle']), // replace 'subtitle' with the actual key name in your data
+            title: Text(data[index].bookName ?? 'No book name'),
+            subtitle: Text('Author: ${data[index].authors}\nBorrower: ${data[index].borrowerName}\nReturn Date: ${data[index].returnDate}'),
           );
         },
       ),

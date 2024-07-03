@@ -15,6 +15,7 @@ class AddSubScriptionView extends StatefulWidget {
 
 class _AddSubScriptionViewState extends State<AddSubScriptionView> {
   TextEditingController txtDescription = TextEditingController();
+  TextEditingController txtAmount = TextEditingController();
 
   List subArr = [
     {"name": "Personal Loan", "icon": "assets/img/hbo_logo.png"},
@@ -27,7 +28,11 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
     {"name": "House Loan", "icon": "assets/img/netflix_logo.png"}
   ];
 
-  double amountVal = 0.09;
+  @override
+  void initState() {
+    super.initState();
+    txtAmount.text = "0.09"; // Initial amount value
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +74,7 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
                             Text(
                               "New",
                               style:
-                                  TextStyle(color: TColor.gray30, fontSize: 16),
+                              TextStyle(color: TColor.gray30, fontSize: 16),
                             )
                           ],
                         ),
@@ -135,8 +140,8 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
             ),
 
             Padding(
-              padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
-              child: RoundTextField(title: "Description", titleAlign: TextAlign.center, controller: txtDescription, )
+                padding: const EdgeInsets.only(top: 30, left: 20, right: 20),
+                child: RoundTextField(title: "Description", titleAlign: TextAlign.center, controller: txtDescription, )
 
             ),
 
@@ -148,42 +153,52 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
                   ImageButton(
                     image: "assets/img/minus.png",
                     onPressed: () {
-
+                      double amountVal = double.tryParse(txtAmount.text) ?? 0.0;
                       amountVal -= 0.1;
 
-                      if(amountVal < 0) {
+                      if (amountVal < 0) {
                         amountVal = 0;
                       }
 
-                      setState(() {
-                        
-                      });
+                      txtAmount.text = amountVal.toStringAsFixed(2);
+                      setState(() {});
                     },
                   ),
 
                   Column(
                     children: [
-                        Text(
+                      Text(
                         "Total amount",
                         style: TextStyle(
                             color: TColor.gray40,
                             fontSize: 12,
                             fontWeight: FontWeight.w600),
                       ),
-
-                     const SizedBox(height: 4,),
-
-                       Text(
-                        "\$${amountVal.toStringAsFixed(2)}",
-                        style: TextStyle(
-                            color: TColor.white,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700),
+                      const SizedBox(height: 4,),
+                      SizedBox(
+                        width: 200,
+                        child: TextFormField(
+                          controller: txtAmount,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: TColor.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.w700),
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '\$0.00',
+                            hintStyle: TextStyle(
+                                color: TColor.gray70,
+                                fontSize: 40,
+                                fontWeight: FontWeight.w700),
+                          ),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
+                        ),
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-
+                      const SizedBox(height: 8,),
                       Container(
                         width: 150,
                         height: 1,
@@ -195,8 +210,10 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
                   ImageButton(
                     image: "assets/img/plus.png",
                     onPressed: () {
+                      double amountVal = double.tryParse(txtAmount.text) ?? 0.0;
                       amountVal += 0.1;
 
+                      txtAmount.text = amountVal.toStringAsFixed(2);
                       setState(() {});
                     },
                   )
@@ -206,7 +223,7 @@ class _AddSubScriptionViewState extends State<AddSubScriptionView> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child:
-                  PrimaryButton(title: "Add this platform", onPressed: () {}),
+              PrimaryButton(title: "Add this platform", onPressed: () {}),
             ),
             const SizedBox(
               height: 20,

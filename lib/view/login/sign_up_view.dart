@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:p2p_money_lending_app/common_widget/round_dropdown.dart';
 import 'package:p2p_money_lending_app/view/login/sign_in_view.dart';
 import 'package:p2p_money_lending_app/view/login/user_details_view.dart';
 
@@ -7,6 +8,7 @@ import '../../common/color_extension.dart';
 import '../../common_widget/primary_button.dart';
 import '../../common_widget/round_textfield.dart';
 import '../../common_widget/secondary_boutton.dart';
+import '../../services/network_service.dart';
 
 class SignUpView extends StatefulWidget {
   const SignUpView({super.key});
@@ -18,6 +20,7 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
+  String roleForDropdownValue = 'Select';
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,16 @@ class _SignUpViewState extends State<SignUpView> {
                   Image.asset("assets/img/app_logo.png",
                       width: media.width * 0.5, fit: BoxFit.contain),
                   const Spacer(),
+                  RoundDropdown(
+                    title: "Select Role",
+                    dropdownValue: roleForDropdownValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        roleForDropdownValue = newValue!;
+                      });
+                    },
+                    items: const ['Select', 'Borrower', 'Lender'],
+                  ),
                   RoundTextField(
                     title: "E-mail address",
                     controller: txtEmail,
@@ -110,6 +123,14 @@ class _SignUpViewState extends State<SignUpView> {
                   PrimaryButton(
                     title: "Get started, it's free!",
                     onPressed: () async {
+                      if (roleForDropdownValue == 'Select') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Select a Valid Role'),
+                          ),
+                        );
+                        return;
+                      }
                       try {
                         UserCredential userCredential = await FirebaseAuth
                             .instance
@@ -125,6 +146,8 @@ class _SignUpViewState extends State<SignUpView> {
                                   'Verification email sent. Please check your email.'),
                             ),
                           );
+                          // Send user details to the server
+                          await sendUserToServer(txtEmail.text, roleForDropdownValue);
                           // Navigate to SignInView after sending the verification email
                           Navigator.pushReplacement(
                             context,

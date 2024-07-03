@@ -4,8 +4,7 @@ import 'package:calendar_agenda/calendar_agenda.dart';
 import 'package:flutter/material.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/view/lender/settings/settings_view.dart';
-
-import '../../../common_widget/subscription_cell.dart';
+import '../../../common_widget/borrower_cell.dart';
 
 class CalenderView extends StatefulWidget {
   const CalenderView({super.key});
@@ -21,7 +20,7 @@ class _CalenderViewState extends State<CalenderView> {
 
   Random random = Random();
 
-  List subArr = [
+  List borrowers = [
     {
       "name": "Person 1",
       "icon": "assets/img/spotify_logo.png",
@@ -44,7 +43,9 @@ class _CalenderViewState extends State<CalenderView> {
     }
   ];
 
-    @override
+  double totalReceivedToday = 0.0;
+
+  @override
   void initState() {
     super.initState();
     selectedDateNotAppBBar = DateTime.now();
@@ -106,7 +107,7 @@ class _CalenderViewState extends State<CalenderView> {
                             height: 20,
                           ),
                           Text(
-                            "Subs\nSchedule",
+                            "Repayment\nSchedule",
                             style: TextStyle(
                                 color: TColor.white,
                                 fontSize: 40,
@@ -119,7 +120,7 @@ class _CalenderViewState extends State<CalenderView> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "3 repayments for today",
+                                "3 repayments received today",
                                 style: TextStyle(
                                     color: TColor.gray30,
                                     fontSize: 14,
@@ -241,7 +242,7 @@ class _CalenderViewState extends State<CalenderView> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        "\$24.98",
+                        "\$$totalReceivedToday",
                         style: TextStyle(
                             color: TColor.white,
                             fontSize: 20,
@@ -280,12 +281,12 @@ class _CalenderViewState extends State<CalenderView> {
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                     childAspectRatio: 1),
-                itemCount: subArr.length,
+                itemCount: borrowers.length,
                 itemBuilder: (context, index) {
-                  var sObj = subArr[index] as Map? ?? {};
+                  var borrower = borrowers[index] as Map? ?? {};
 
-                  return SubScriptionCell(
-                    sObj: sObj,
+                  return BorrowerCell(
+                    borrower: borrower,
                     onPressed: () {},
                   );
                 }),

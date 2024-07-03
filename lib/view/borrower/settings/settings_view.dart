@@ -94,67 +94,6 @@ class _SettingsViewState extends State<SettingsView> {
             const SizedBox(
               height: 15,
             ),
-            InkWell(
-              borderRadius: BorderRadius.circular(15),
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: TColor.border.withOpacity(0.15),
-                  ),
-                  color: TColor.gray60.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                  "Edit profile",
-                  style: TextStyle(
-                      color: TColor.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              borderRadius: BorderRadius.circular(15),
-              onTap: () async {
-                try {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignInView(),
-                    ),
-                  );
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Error signing out. Try again.'),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: TColor.border.withOpacity(0.15),
-                  ),
-                  color: TColor.gray60.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Text(
-                  "Logout",
-                  style: TextStyle(
-                      color: TColor.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               child: Column(
@@ -181,20 +120,32 @@ class _SettingsViewState extends State<SettingsView> {
                     ),
                     child: Column(
                       children: [
-                        const IconItemRow(
-                          title: "Security",
-                          icon: "assets/img/face_id.png",
-                          value: "FaceID",
+                        ListTile(
+                          leading: Icon(Icons.person, color: TColor.gray20),
+                          title: Text("Personal Information", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
                         ),
-                        IconItemSwitchRow(
-                          title: "iCloud Sync",
-                          icon: "assets/img/icloud.png",
+                        ListTile(
+                          leading: Icon(Icons.email, color: TColor.gray20),
+                          title: Text("Notifications & Emails", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.security, color: TColor.gray20),
+                          title: Text("Privacy & Security", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                        ),
+                        SwitchListTile(
                           value: isActive,
-                          didChange: (newVal) {
+                          onChanged: (newVal) {
                             setState(() {
                               isActive = newVal;
                             });
                           },
+                          title: Text("AutoPay", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                          secondary: Icon(Icons.payment, color: TColor.gray20),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.lock, color: TColor.gray20),
+                          title: Text("Lock App", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                          subtitle: Text("Biometric", style: TextStyle(color: TColor.gray30, fontSize: 12, fontWeight: FontWeight.w500)),
                         ),
                       ],
                     ),
@@ -203,7 +154,7 @@ class _SettingsViewState extends State<SettingsView> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20, bottom: 8),
                     child: Text(
-                      "My subscription",
+                      "Support",
                       style: TextStyle(
                           color: TColor.white,
                           fontSize: 14,
@@ -219,26 +170,18 @@ class _SettingsViewState extends State<SettingsView> {
                       color: TColor.gray60.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Column(
+                    child: Column(
                       children: [
-                        IconItemRow(
-                          title: "Sorting",
-                          icon: "assets/img/sorting.png",
-                          value: "Date",
+                        ListTile(
+                          leading: Icon(Icons.info, color: TColor.gray20),
+                          title: Text("About", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                          subtitle: Text("About Us", style: TextStyle(color: TColor.gray30, fontSize: 12, fontWeight: FontWeight.w500)),
                         ),
-
-                        IconItemRow(
-                          title: "Summary",
-                          icon: "assets/img/chart.png",
-                          value: "Average",
+                        ListTile(
+                          leading: Icon(Icons.help, color: TColor.gray20),
+                          title: Text("Help & Feedback", style: TextStyle(color: TColor.white, fontSize: 14, fontWeight: FontWeight.w600)),
+                          subtitle: Text("Help Center", style: TextStyle(color: TColor.gray30, fontSize: 12, fontWeight: FontWeight.w500)),
                         ),
-
-                        IconItemRow(
-                          title: "Default currency",
-                          icon: "assets/img/money.png",
-                          value: "USD (\$)",
-                        ),
-                        
                       ],
                     ),
                   ),
@@ -279,10 +222,50 @@ class _SettingsViewState extends State<SettingsView> {
                           icon: "assets/img/font.png",
                           value: "Inter",
                         ),
-                        
+
                       ],
                     ),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 8),
+                    child: Text(
+                      "Account",
+                      style: TextStyle(
+                          color: TColor.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                  Center(
+                      child:ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: Colors.red, backgroundColor: Colors.white, // Text and icon color
+                          side: const BorderSide(color: Colors.red, width: 2), // Border color and width
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10), // Border radius
+                          ),
+                        ),
+                        icon: const Icon(Icons.logout), // Logout symbol
+                        label: const Text('Logout'), // Text
+                        onPressed: () async {
+                          try {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignInView(),
+                              ),
+                            );
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Error signing out. Try again.'),
+                              ),
+                            );
+                          }
+                        },
+                      )
+                  )
                 ],
               ),
             )

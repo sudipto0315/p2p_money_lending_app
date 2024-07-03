@@ -5,6 +5,8 @@ import 'package:p2p_money_lending_app/common_widget/round_textfield.dart';
 import 'package:p2p_money_lending_app/common_widget/round_dropdown.dart';
 import 'package:p2p_money_lending_app/view/login/user_KYC_details_view.dart';
 
+import '../../services/network_service.dart';
+
 class UserDetailsView extends StatefulWidget {
   const UserDetailsView({super.key});
 
@@ -129,11 +131,25 @@ class _UserDetailsViewState extends State<UserDetailsView> {
                 const SizedBox(height: 20),
                 PrimaryButton(
                   title: "Submit",
-                  onPressed: () {
+                  onPressed: () async {
+                    String UserID = await getUserIDWithEmailAndRole(txtEmail.text, roleForDropdownValue);
+                    sendUserDetailsToServer(
+                      UserID,
+                      txtFirstName.text,
+                      txtLastName.text,
+                      genderDropdownValue,
+                      maritalStatusDropdownValue,
+                      txtDateOfBirth.text,
+                      txtPhoneNumber.text,
+                      txtEmail.text,
+                      occupationDropdownValue,
+                      txtAddress.text,
+                      roleForDropdownValue,
+                    );
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const UserKYCDetailsView(),
+                        builder: (context) => UserKYCDetailsView(UserID: UserID),
                       ),
                     );
                   },
