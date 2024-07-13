@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p2p_money_lending_app/view/borrower/add_subscription/add_subscription_view.dart';
+import 'package:p2p_money_lending_app/view/borrower/loan_request/loan_request_view.dart';
 
 import '../../../common/color_extension.dart';
 import '../calender/calender_view.dart';
@@ -9,7 +9,9 @@ import '../home/home_view.dart';
 import '../spending_budgets/spending_budgets_view.dart';
 
 class BorrowerMainTabView extends StatefulWidget {
-  const BorrowerMainTabView({super.key});
+  final String email;
+  final String role;
+  const BorrowerMainTabView({super.key, required this.email, required this.role});
 
   @override
   State<BorrowerMainTabView> createState() => _BorrowerMainTabView();
@@ -124,7 +126,7 @@ class _BorrowerMainTabView extends State<BorrowerMainTabView> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const AddSubScriptionView()) );
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoanRequestView(email: widget.email, role: widget.role,)));
                       },
                       child: Container(
                         margin: const EdgeInsets.all(20),

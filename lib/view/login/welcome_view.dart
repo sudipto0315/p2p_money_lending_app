@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:p2p_money_lending_app/view/lender/main_tab/main_tab_view.dart';
+// import 'package:p2p_money_lending_app/view/lender/main_tab/main_tab_view.dart';
 import 'package:p2p_money_lending_app/view/login/sign_in_view.dart';
 import 'package:p2p_money_lending_app/view/login/social_login.dart';
 import 'package:p2p_money_lending_app/view/login/test_data_view.dart';
@@ -104,17 +104,17 @@ class _WelcomeViewState extends State<WelcomeView> {
                     },
                   ),
                   // Lender View (Testing Purpose)
-                  SecondaryButton(
-                    title: "Lender",
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LenderMainTabView(),
-                        ),
-                      );
-                    },
-                  ),
+                  // SecondaryButton(
+                  //   title: "Lender",
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const LenderMainTabView(),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

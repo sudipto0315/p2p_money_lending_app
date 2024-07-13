@@ -9,7 +9,9 @@ import '../home/home_view.dart';
 import '../spending_budgets/spending_budgets_view.dart';
 
 class LenderMainTabView extends StatefulWidget {
-  const LenderMainTabView({super.key});
+  final String email;
+  final String role;
+  const LenderMainTabView({super.key, required this.email, required this.role});
 
   @override
   State<LenderMainTabView> createState() => _LenderMainTabView();

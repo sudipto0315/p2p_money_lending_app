@@ -148,7 +148,7 @@ class _SignInViewState extends State<SignInView> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LenderMainTabView(),
+                            builder: (context) => LenderMainTabView(email: txtEmail.text, role: roleForDropdownValue),
                           ),
                         );
                       } else if (roleForDropdownValue == 'Borrower') {
@@ -156,7 +156,7 @@ class _SignInViewState extends State<SignInView> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const BorrowerMainTabView(),
+                            builder: (context) => BorrowerMainTabView(email: txtEmail.text, role: roleForDropdownValue),
                           ),
                         );
                       }
