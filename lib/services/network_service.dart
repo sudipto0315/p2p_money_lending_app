@@ -26,7 +26,7 @@ Future<void> sendUserDetailsToServer(
     // Choose the endpoint based on the role
     String endpoint = role == 'Borrower' ? 'borrower/add' : 'lender/add';
     final response = await http.post(
-      Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/$endpoint'),
+      Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/$endpoint'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': authHeader,
@@ -79,7 +79,7 @@ Future<void> sendKYCDetailsToServer(
   }
   try {
     final response = await http.post(
-      Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/kyc/add'),
+      Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/kyc/add'),
       // Replace with your server address
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
@@ -121,7 +121,7 @@ Future<List<String>> getUserRole(String email) async {
   final authHeader = 'Basic ${base64Encode(utf8.encode('$username:$password'))}';
 
   final response = await http.get(
-    Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/user/getUserRole/$email'),
+    Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/user/getUserRole/$email'),
     headers: <String, String>{
       'Authorization': authHeader,
     },
@@ -146,7 +146,7 @@ Future<void> sendUserToServer(
   }
   try {
     final response = await http.post(
-      Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/user/add'),
+      Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/user/add'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': authHeader,
@@ -190,7 +190,7 @@ Future<String> getUserIDWithEmailAndRole(
   try {
     final response = await http.get(
       Uri.parse(
-          'https://348nx6lw-3000.inc1.devtunnels.ms/user/getUserWithEmailAndRole/$email/$role'),
+          'https://k1fvh0s4-3000.inc1.devtunnels.ms/user/getUserWithEmailAndRole/$email/$role'),
       headers: <String, String>{
         'Authorization': authHeader,
       },
@@ -234,7 +234,7 @@ Future<bool> doesUserExist(
   }
   try {
     final response = await http.get(
-      Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/user/exists/$email/$role'),
+      Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/user/exists/$email/$role'),
       headers: <String, String>{
         'Authorization': authHeader,
       },

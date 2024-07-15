@@ -55,7 +55,7 @@ class _TestDataViewState extends State<TestDataView> {
   }
 
   void getData() async {
-    final response = await http.get(Uri.parse('https://348nx6lw-3000.inc1.devtunnels.ms/testdata'));
+    final response = await http.get(Uri.parse('https://k1fvh0s4-3000.inc1.devtunnels.ms/testdata'));
 
     if (response.statusCode == 200) {
       List jsonResponse = json.decode(response.body);

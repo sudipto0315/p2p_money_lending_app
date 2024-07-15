@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:p2p_money_lending_app/common/color_extension.dart';
 import 'package:p2p_money_lending_app/view/login/welcome_view.dart';
 import 'package:p2p_money_lending_app/view/borrower/main_tab/main_tab_view.dart';
+import 'package:p2p_money_lending_app/view/lender/main_tab/main_tab_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,17 +44,31 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: false,
       ),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data != null) {
-              return const BorrowerMainTabView();
+      home: FutureBuilder<SharedPreferences>(
+        future: SharedPreferences.getInstance(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (!snapshot.hasData) {
+              return const WelcomeView(); // No SharedPreferences instance found, show WelcomeView
+            }
+            final prefs = snapshot.data!;
+            final isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+            if (isLoggedIn) {
+              final email = prefs.getString('userEmail') ?? '';
+              final role = prefs.getString('userRole') ?? '';
+              // Depending on the role, navigate to the appropriate view
+              if (role == 'borrower') {
+                return BorrowerMainTabView(email: email, role: role);
+              } else if (role == 'lender') {
+                return LenderMainTabView(email: email, role: role);
+              } else {
+                return const WelcomeView(); // Role not recognized, show WelcomeView
+              }
             } else {
-              return const WelcomeView();
+              return const WelcomeView(); // Not logged in, show WelcomeView
             }
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator()); // Waiting for SharedPreferences to load
         },
       ),
     );
